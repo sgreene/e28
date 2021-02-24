@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shopping List</title>
+        <meta charset='utf-8'>
+        <link href=data:, rel=icon>
+        <script src='https://unpkg.com/vue@next' defer></script>
+        <script src='shopping.js' defer></script>
+        <style>
+            [v-cloak] {
+                display: none;
+            }
+            input { margin-right: 10px;}
+        </style>
+    </head>
+    <body>
+        <h1>Shopping List</h1>
+        <div id="shopping" v-cloak>
+            <div>
+                <label for="qtyInput">Qty:</label><input v-model='qty' id='qtyInput'/>
+                <label for="itemInput">Item:</label><input v-model='item' id='itemInput'/>
+                <button v-on:click='addItem()'>Add</button>
+            </div>
+            <p v-if='items.length == 0'><i>You have no items in your list</i></p>
+            <div v-for='(sitem,index) in items'>
+                <p><button v-on:click="deleteItem(index)">X</button>{{ sitem[0] }}&nbsp;x&nbsp;{{ sitem[1] }} </p>
+            </div>
+        </div>
+    </body>
+</html>
