@@ -4,8 +4,16 @@
     <title>Practice Application</title>
     <meta charset='utf-8'>
     <link href=data:, rel=icon>
+    <script src='https://unpkg.com/vue@next' defer></script>
+    <script src='script.js' defer></script>
 </head>
 <body>
-    <h1>Practice Application</h1>
+    <div id="app"><p>Hello {{ playerName }}</p>
+    <div>
+        <ul>
+            <li v-for='value in settings'>{{ value }}</li>
+        </ul>
+    </div>
+    </div>
 </body>
 </html>

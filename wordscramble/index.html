@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vue.js Intro</title>
+    <meta charset='utf-8'>
+    <link href=data:, rel=icon>
+
+    <script src='https://unpkg.com/vue@next' defer></script>
+    <script src='script.js' defer></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <body>
+        <h1>Word Scramble</h1>
+        <div id='app' v-cloak>
+            <label>Enter your player name: <input type='text' v-model.trim='playerName'></label>
+            <button v-on:click='startGame()'>Let's Play!</button>
+            <div v-if="started">
+                <p>Game on {{ playerName }} !</p>
+                <p>Your mystery word is: {{ scrambledWord }}</p>
+                <p>Hint: {{ words[wordIndex][1] }}</p>
+                <label>Your guess: <input type='text' v-model='guess'/></label><button v-on:click="submitGuess()">Submit Guess</button>
+            </div>
+            <div v-if="gameOver">
+                <p v-if="won">You Won!</p>
+                <p v-if="lost">You Lost!</p>
+            </div>
+        </div>
+    </body>
+</body>
+
+</html>
