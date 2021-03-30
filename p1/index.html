@@ -12,14 +12,109 @@
         [v-cloak] {
             display: none;
         }
+        .guess-box {
+            background-color:  #fdfd96;
+        }
+        .game-title {
+            text-align: center;
+            color: darkblue;
+            font-size: 36px;
+        }
+        .word-box {
+            border-radius: 25px;
+            border: 2px solid #73AD21;
+            padding: 5px;
+            width: 200px;
+            height: 20px;
+            text-align: center;
+            font-weight: bolder;
+            font-size: x-large;
+            color: #73AD21;
+        }
+        .used-letters {
+            border: 2px solid blueviolet;
+            padding: 10px;
+            font-weight: bolder;
+            font-family: cursive;
+            width: 200px;
+        }
+        .won-round {
+            background-color: green;
+            color: white;
+            font-weight: bold;
+            font-size: medium;
+            width: 100px;
+        }
+        .lost-round {
+            background-color: red;
+            color: white;
+            font-weight: bold;
+            font-size: medium;
+            width: 100px;
+        }
+        #guessButton {
+            margin-left: 5px;
+        }
+        .rounds-box {
+            border: 4px solid forestgreen;
+            padding: 10px;
+            width: 200px;
+            margin: auto;
+
+        }
     </style>
 </head>
 
 <body>
-    <h1>Blackjack!</h1>
+    <h1 class="game-title">Hangman</h1>
     <div id='app' v-cloak>
-        <label>Let's Play! <input type='text' v-model='playerName'></label
+
+        <div id="intro" v-if="!gameStarted">
+            <label for="player">Enter name:</label> 
+            <input id="player" type='text' v-model='playerName'>
+            <button v-on:click="startGame()">Let's Go!</button>
+        </div>
+        
+        <div id="game" v-if="gameStarted">
+            <h2>Let's go {{playerName}}!</h2>
+            <div class="rounds-box">
+                <p>Round: {{rounds.length +1}}</p>
+                <p>Wins: {{allWins}}</p>
+                <p>Losses: {{allLosses}}</p>
+            </div>
+            <hangman-state v-bind:state='guessNum'></hangman-state>
+            <player-guess v-bind:guessing-over='roundOver' v-bind:answer='randomAnswer' v-bind:ans='currentAnswer' 
+                v-on:guessed-letter='processGuess($event)' v-on:round-over='closeRound($event)'/>
+        </div>
+        <div v-if="roundOver">
+            <div v-if="roundWon" ><p class="won-round">You Won!</p></div>
+            <div v-else><p class="lost-round">Sorry!</p></div>
+        </div>
     </div>
+    <script type='text/x-template' id='hangman-state'>
+        <div>
+            <img v-bind:src='images[state]'/>
+        </div>
+    </script>
+    <script type='text/x-template' id='player-guess'>
+        <div>
+            <div>
+                <label for='letterGuess'>Guess a Letter:</label>
+                <input id="letterGuess" v-model='currentLetter' class="guess-box" maxlength=1 size=1 autofocus/>
+                
+                <button id='guessButton' :disabled='guessingOver' v-on:click='submitGuess()'>Guess</button>
+                <button id='newRoundButton' :disabled='!guessingOver' v-on:click='nextRound()'>Next Round</button>
+                <p class='word-box'>{{ans.join("")}}</p>
+            </div>
+            <div>
+                <p>Hint: {{hint}}</p>
+            </div>
+            <div>
+                <p>Used Letters:</p>
+                <p class='used-letters'>{{usedLetters}}</p>
+            </div>
+        </div>
+    </script>
 </body>
 
 </html>
