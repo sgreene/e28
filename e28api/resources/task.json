@@ -1,0 +1,30 @@
+{
+    "permission_level":0,
+    "fields":{
+        "title": {
+            "type": "string",
+            "validators": [
+                "required",
+                "min:3",
+                "max:150"
+            ]
+        },
+        "description": {
+            "type": "text",
+            "validators": []
+        },
+        "priority": {
+            "type": "integer",
+            "validators": [
+                "required",
+                "numeric"
+            ]
+        },
+        "completed": {
+            "type":"boolean",
+            "validators": [
+                "required"
+            ]
+        }
+    }
+}
