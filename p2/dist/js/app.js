@@ -408,7 +408,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _nod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"axios\", function() { return axios; });\nvar _process$env$VUE_APP_;\n\nvar axios = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\").create({\n  baseURL: (_process$env$VUE_APP_ = Object({\"NODE_ENV\":\"development\",\"VUE_APP_APIURL\":\"http://e28p2.trinigooner.me\",\"BASE_URL\":\"/\"}).VUE_APP_API_URL) !== null && _process$env$VUE_APP_ !== void 0 ? _process$env$VUE_APP_ : 'http://e28api.trinigooner.loc/',\n  responseType: 'json'\n});\n\n//# sourceURL=webpack:///./src/common/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"axios\", function() { return axios; });\nvar _process$env$VUE_APP_;\n\nvar axios = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\").create({\n  baseURL: (_process$env$VUE_APP_ = Object({\"NODE_ENV\":\"development\",\"VUE_APP_APIURL\":\"http://e28api.trinigooner.me\",\"BASE_URL\":\"/\"}).VUE_APP_API_URL) !== null && _process$env$VUE_APP_ !== void 0 ? _process$env$VUE_APP_ : 'http://e28api.trinigooner.loc/',\n  responseType: 'json'\n});\n\n//# sourceURL=webpack:///./src/common/app.js?");
 
 /***/ }),
 
