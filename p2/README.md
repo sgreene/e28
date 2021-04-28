@@ -1,6 +1,6 @@
 # Project 2
 + By: *Simeon Greene*
-+ Production URL: <http://e28p2.yourdomain.com>
++ Production URL: [http://e28p2.trinigooner.me](http://e28p2.trinigooner.me)
 
 ## Pages summary
 * HomePage.vue - the main page of the application
