@@ -1,6 +1,6 @@
 <template>
   <div>
-          <todo-task v-for="task in allTasks" v-bind:key="task.id" v-bind:taskItem="task" />
+          <todo-task v-on:update-tasks="updateTasks()" v-for="task in allTasks" v-bind:key="task.id" v-bind:taskItem="task" />
   </div>
 </template>
 
@@ -13,6 +13,11 @@ export default {
     props: {
         allTasks: {
             type: Array
+        }
+    },
+    methods: {
+        updateTasks() {
+            this.$emit('update-tasks');
         }
     }
 }

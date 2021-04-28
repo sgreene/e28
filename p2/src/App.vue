@@ -1,6 +1,7 @@
 <template>
   <!-- <home-page v-bind:allTasks="allTasks.sort((a,b) => (a.priority > b.priority) ? 1:-1)"></home-page> -->
   <div>
+    <h1>Task Master</h1>
     <nav>
       <ul>
           <li>
@@ -35,19 +36,14 @@ export default {
     }
   },
   mounted() {
-    axios.get('task').then( response => {
-      this.allTasks = response.data.task;
-      this.allTasks.sort((a,b) => (a.priority > b.priority) ? 1:-1)
-    })
+    this.refreshTasks();
   },
   methods: {
     refreshTasks() {
-      console.log("Refreshing");
-      axios.get('task').then( response => {
-        console.log("Updating data")
-      this.allTasks = response.data.task;
-      this.allTasks.sort((a,b) => (a.priority > b.priority) ? 1:-1)
-    })
+        axios.get('task').then( response => {
+        this.allTasks = response.data.task;
+        this.allTasks.sort((a,b) => (a.priority > b.priority) ? 1:-1)
+      })
     }
   }
 }

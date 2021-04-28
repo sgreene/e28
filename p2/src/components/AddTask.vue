@@ -1,10 +1,14 @@
 <template>
 <div>
    <div><button id="addNewTask" v-if="!addTask" v-on:click="toggleAddTask()" class="centerButton">Add Task</button></div>
+
     <div id="addForm" v-if="addTask">
+        <div id="errorMsg" v-if="hasError">
+         Error: {{ errors.title[0] }}
+        </div>
         <div>
           <label for="taskTitle">Title</label>
-          <input id="taskTitle" v-model="task.title"/>
+          <input id="taskTitle" v-model="task.title" v-on:keyup="hasError = false"/>
         </div>
         <div>
           <label for="taskDescription">Description</label>
@@ -40,7 +44,7 @@ export default {
         completed:false
       },
       errors: null,
-      
+      hasError: false,
     }
   },
   methods: {
@@ -50,15 +54,19 @@ export default {
       this.task.title = "";
       this.task.description = "";
       this.task.priority = 0;
+      this.errors = null;
+      this.hasError = false;
     },
     submitTask() {
       axios.post('/task',this.task).then((response) => {
         if(response.data.errors) {
           this.errors = response.data.errors;
+          this.hasError = true;
         }else {
           this.$emit('update-tasks');
+          this.toggleAddTask();
         }
-        this.toggleAddTask();
+        
       })
     }
   }
@@ -66,9 +74,18 @@ export default {
 </script>
 
 <style scoped>
+#errorMsg {
+  border-style: solid;
+  border-width: 1px;
+  border-color: red;
+  margin-bottom: 5px;
+  background-color: red;
+  font-weight: bolder;
+  color: antiquewhite;
+}
 #addForm {
   width: 50%;
-  height: 150px;
+  height: 180px;
   border-radius: 15px;
   border-style: solid;
   border-width: 2px;

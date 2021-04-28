@@ -1,8 +1,7 @@
 <template>
   <div>
-      <h1>Task Master</h1>
       <add-task v-on:update-tasks="update($event)"></add-task>
-      <todo-tasks v-bind:allTasks="allTasks"></todo-tasks>
+      <todo-tasks v-on:update-tasks="update($event)" v-bind:allTasks="allTasks"></todo-tasks>
   </div>
 </template>
 
@@ -21,7 +20,6 @@ export default {
     },
     methods: {
         update() {
-            console.log("Update called");
             this.$emit('update-tasks');
         }
     }
