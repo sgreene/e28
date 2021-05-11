@@ -18,10 +18,6 @@
 
         <div v-else id="loginForm">
             <h2>Login</h2>
-            <small>
-                (Form is prefilled for demonstration purposes; remove in final
-                application)
-            </small>
             <div>
                 <label>
                     Email:
@@ -55,8 +51,8 @@ export default {
             // Form is prefilled for demonstration purposes; remove in final application
             // jill@harvard.edu/asdfasdf is one of our seed users from e28api/seeds/user.json
             data: {
-                email: "jill@harvard.edu",
-                password: "asdfasdf",
+                email: "",
+                password: "",
             },
             errors: null,
             favorites: [],
