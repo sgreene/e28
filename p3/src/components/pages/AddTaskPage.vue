@@ -1,14 +1,17 @@
 <template>
 <div>
-   <div><button id="addNewTask" v-if="!addTask" v-on:click="toggleAddTask()" class="centerButton">Add Task</button></div>
+   <!-- <div><button id="addNewTask" v-if="!addTask" v-on:click="toggleAddTask()" class="centerButton">Add Task</button></div> -->
 
-    <div id="addForm" v-if="addTask">
+    <div id="addForm">
         <div id="errorMsg" v-if="hasError">
          Error: {{ errors.title[0] }}
         </div>
+        <div id="successMsg" v-if="submitted">
+         Successfully submitted task {{ task.title }}
+        </div>
         <div>
           <label for="taskTitle">Title</label>
-          <input id="taskTitle" v-model="task.title" v-on:keyup="hasError = false"/>
+          <input id="taskTitle" v-model="task.title" v-on:keyup="hasError = false;submitted = false"/>
         </div>
         <div>
           <label for="taskDescription">Description</label>
@@ -24,8 +27,9 @@
         </div>
         <div>
           <button id="doneBtn" class="button" v-on:click="submitTask()">Done</button>
-          <button id="cancelBtn" v-on:click="toggleAddTask()" class="button">Cancel</button>
+          <button id="cancelBtn" v-on:click="toggleAddTask(false)" class="button">Cancel</button>
         </div>
+        
     </div>
     
   </div>
@@ -45,10 +49,11 @@ export default {
       },
       errors: null,
       hasError: false,
+      submitted: false,
     }
   },
   methods: {
-    toggleAddTask() {
+    toggleAddTask(submit) {
       this.addTask = !this.addTask;
       //reset fields
       this.task.title = "";
@@ -56,15 +61,17 @@ export default {
       this.task.priority = 0;
       this.errors = null;
       this.hasError = false;
+      this.submitted = submit;
     },
     submitTask() {
       axios.post('/task',this.task).then((response) => {
         if(response.data.errors) {
+          this.submitted = false;
           this.errors = response.data.errors;
           this.hasError = true;
         }else {
           this.$emit('update-tasks');
-          this.toggleAddTask();
+          this.toggleAddTask(true);
         }
         
       })
@@ -80,6 +87,15 @@ export default {
   border-color: red;
   margin-bottom: 5px;
   background-color: red;
+  font-weight: bolder;
+  color: antiquewhite;
+}
+#successMsg {
+  border-style: solid;
+  border-width: 1px;
+  border-color: green;
+  margin-bottom: 5px;
+  background-color: green;
   font-weight: bolder;
   color: antiquewhite;
 }

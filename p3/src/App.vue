@@ -9,11 +9,12 @@
                   v-for="link in links"
                   v-bind:key="link"
                   v-bind:to="paths[link]"
-                  >{{ link }}</router-link
+                  >{{ linkDisplay[link] }}</router-link
               >
           </li>
       </ul>
     </nav>
+    <!-- <button @click="$router.push('/task/new')">Add Task</button> -->
     <router-view v-bind:allTasks='allTasks' v-on:update-tasks="refreshTasks($event)"></router-view>
   </div>
 </template>
@@ -27,16 +28,25 @@ export default {
   
   data() {
     return {
-      links: ['home', 'task'],
+      links: ['home', 'tasks','add','account'],
       paths: {
         home: '/',
-        task: '/task'
+        tasks: '/task',
+        add: '/task/new',
+        account: '/account'
+      },
+      linkDisplay: {
+        home: 'Home',
+        tasks: 'Todo Tasks',
+        account: 'Account',
+        add: 'Add Task',
       },
       allTasks: null
     }
   },
   mounted() {
     this.refreshTasks();
+    this.$store.dispatch('authUser');
   },
   methods: {
     refreshTasks() {

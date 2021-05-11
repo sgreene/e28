@@ -1,16 +1,18 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { createRouter, createWebHistory } from 'vue-router';
+import { store } from '@/common/store.js'
 
-import HomePage from '@/components/pages/HomePage.vue'
-import TasksPage from '@/components/pages/TasksPage.vue'
+import { router } from '@/common/router.js'
 
-const router = createRouter({
-    history: createWebHistory(),
-    routes: [
-        { path: '/', component: HomePage},
-        { path: '/task', component: TasksPage}
-    ]
-})
+// import HomePage from '@/components/pages/HomePage.vue'
+// import TasksPage from '@/components/pages/TasksPage.vue'
 
-createApp(App).use(router).mount('#app')
+// const router = createRouter({
+//     history: createWebHistory(),
+//     routes: [
+//         { path: '/', component: HomePage},
+//         { path: '/task', component: TasksPage}
+//     ]
+// })
+
+createApp(App).use(router).use(store).mount('#app')
