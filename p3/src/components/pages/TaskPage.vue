@@ -52,7 +52,6 @@ export default {
                     completedData.task_id = this.taskItem.id;
                     axios.post('completed',completedData).then ( (res) => {
                         if(res.success) {
-                            console.log("Dispatching...");
                             this.$store.dispatch('completed');
                         }
                         
