@@ -3,7 +3,10 @@
       <p>{{ taskItem.title }}</p>
       <button id="deleteBtn" v-on:click="deleteTask()"><img src='@/assets/delete.png' height="28" width="28"/></button>
       <p>{{ taskItem.description }}</p>
-      
+      <div v-if="$store.state.user" id="completedBox">
+        <input type="checkbox" v-model="completed" id="taskCompleted" name="taskCompleted" @change="completeTask()">
+        <label for="taskCompleted">Completed</label>
+      </div>
   </div>
 </template>
 
@@ -17,6 +20,7 @@ export default {
     },
     data() {
         return {
+            completed: false,
             colors: ["red","green","blue"]
         }
     },
@@ -35,6 +39,15 @@ export default {
                 }
             });
             
+        },
+        completeTask() {
+            let task = this.taskItem;
+            task.completed = (this.completed) ? "1":"0";
+            axios.put(`task/${this.taskItem.id}`,task).then( (res) => {
+                if(!res.data.errors) {
+                    this.$emit('update-tasks');
+                }
+            })
         }
     }
 }
@@ -60,5 +73,9 @@ export default {
     border-style: solid;
     border-radius: 25px;
     margin-top: 5px;
+}
+#completedBox {
+    font-weight: bolder;
+    color: azure;
 }
 </style>

@@ -52,7 +52,8 @@ export default {
     refreshTasks() {
         axios.get('task').then( response => {
         this.allTasks = response.data.task;
-        this.allTasks.sort((a,b) => (a.priority > b.priority) ? 1:-1)
+        this.allTasks.sort((a,b) => (a.priority > b.priority) ? 1:-1);
+        this.allTasks = this.allTasks.filter( (t) => t.completed == "0");
       })
     }
   }
