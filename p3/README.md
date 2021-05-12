@@ -6,9 +6,8 @@
 * HomePage.vue - the main page of the application
 * TaskPage.vue - an individual task.
 * TasksPage.vue - a list of all tasks.
-
-## SFC summary
-* AddTask.vue - This component adds a new task to the task list.
+* AccountsPage.vue - Login/Logout/Create new user.
+* AddTaskPage.vue - Add a new task
   
 ## Server interaction
 *List the features in your application that are persisting and retrieving data from the server*
