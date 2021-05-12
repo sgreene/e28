@@ -10,6 +10,7 @@ export const store = createStore({
     state() {
         return {
             user: null,
+            completed: 0
         }
     },
     mutations: {
@@ -17,6 +18,9 @@ export const store = createStore({
         setUser(state, payload) {
             state.user = payload;
         },
+        setCompleted(state,payload) {
+            state.completed = payload;
+        }
     },
     actions: {
         // [...existing actions...]
@@ -33,5 +37,18 @@ export const store = createStore({
                 });
             });
         },
+        completed(context,state) {
+            return new Promise((resolve) => {
+                axios.get('completed/query?user_id=' + state.user.id).then((response) => {
+                     if(response.data.success) {
+                        context.commit('setCompleted',response.data.completed.length);
+                     }else {
+                         context.commit('setCompleted',0);
+                     }
+    
+                    resolve();
+                });
+            });
+        }
     }
 })

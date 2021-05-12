@@ -2,7 +2,7 @@
     <div id="account-page">
         <div v-if="user">
             <h2>Hi, {{ user.name }}!</h2>
-
+            <p>You have {{ userTasks }} completed tasks.</p>
             <button v-on:click="logout">Logout</button>
         </div>
         <template v-else>
@@ -80,6 +80,9 @@ export default {
         user() {
             return this.$store.state.user;
         },
+        userTasks() {
+            return this.$store.state.completed;
+        }
         // products() {
         //     return this.$store.state.products;
         // },
@@ -122,15 +125,27 @@ export default {
                     this.createErrors = response.data.errors;
                 }
             })
+        },
+        loadCompleted() {
+            if(this.user) {
+                axios.get('completed/query?user_id=' + this.user.id).then((response) => {
+                     if(response.data.success) {
+                         this.$store.commit('setCompleted',response.data.completed.length);
+                     }else {
+                          this.$store.commit('setCompleted',0);
+                     }
+             });
+            }
+             
         }
     },
     watch: {
         user() {
-            //this.loadFavorites();
+            this.loadCompleted();
         },
     },
     mounted() {
-        //this.loadFavorites();
+        this.loadCompleted();
     },
 };
 </script>

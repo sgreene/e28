@@ -46,6 +46,17 @@ export default {
             axios.put(`task/${this.taskItem.id}`,task).then( (res) => {
                 if(!res.data.errors) {
                     this.$emit('update-tasks');
+                    //complete the task.
+                    let completedData = {};
+                    completedData.user_id = this.$store.state.user.id;
+                    completedData.task_id = this.taskItem.id;
+                    axios.post('completed',completedData).then ( (res) => {
+                        if(res.success) {
+                            console.log("Dispatching...");
+                            this.$store.dispatch('completed');
+                        }
+                        
+                    })
                 }
             })
         }
